@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
-  resources :categories
+  resources :users, only: [:show] do 
+    resources :posts, only: [:index, :show, :new, :edit, :destroy]
+  end
+
+  resources :categories, only: [:index, :show] do
+    resources :posts, only: [:index]
+  end
+
   resources :posts
-  resources :users
 
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
