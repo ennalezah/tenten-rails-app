@@ -7,12 +7,14 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    User.find(session[:user_id])
+    @current_user ||= User.find_by(id: session[:user_id])
   end
 
-  def redirect_to_login
-    if !logged_in? || current_user.blank?
-      redirect_to dashboard_path
+  def set_user
+    if !logged_in?
+      redirect_to login_path
+    else
+      current_user
     end
   end
 end

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :users, only: [:show] do 
+  resources :users do 
     resources :posts, only: [:index, :show, :new, :edit, :destroy]
   end
 
@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:index]
   end
 
-  resources :posts
+  # resources :posts
 
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
