@@ -2,6 +2,8 @@ class User < ApplicationRecord
   has_secure_password
   has_many :posts
 
+  before_validation :make_titlecase, :make_downcase
+
   validates :name,
     presence: { message: "Name cannot be left blank." },
     format: { with: /\A[a-zA-Z\s]+\z/, message: "Name can only contain letters." },
@@ -20,4 +22,15 @@ class User < ApplicationRecord
   validates :password,
     presence: { message: "Password cannot be left blank." },
     length: { in: 6..20, message: "Password must be between 6-20 characters long." }
+
+    private
+
+    def make_titlecase
+      self.name = name.titlecase
+    end
+
+    def make_downcase
+      self.email = email.downcase
+      self.username = username.downcase
+    end
 end
