@@ -1,9 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show]
-
-  def index 
-  end
-
+  
   def new 
     @user = User.new
   end
@@ -20,12 +17,15 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id: params[:id])
   end
 
   private 
   
   def user_params
     params.require(:user).permit(:name, :email, :username, :password, :password_confirmation)
+  end
+
+  def set_user 
+    @user = User.find(params[:id])
   end
 end
